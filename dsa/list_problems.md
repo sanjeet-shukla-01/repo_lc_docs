@@ -104,3 +104,4 @@ if __name__ == "__main__":
 
 ### Points to Remember: 
 - Integer division is used to iterate upto `n//2`
+- Integer Division `(n//2)` and module division `(n%2)` is used in palindrom number problem   
