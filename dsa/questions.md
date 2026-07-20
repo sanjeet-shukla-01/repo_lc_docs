@@ -22,4 +22,6 @@
 - Array Representation: They are efficiently stored in arrays without using pointers.
 - For a node at index i, its children are located at indices 2i+1 and 2i+2, and its parent at \(\frac{i-1}{2}\).
 - Efficiency: Peeking at the maximum or minimum takes O(1) time, while inserting or removing elements takes \(O(\log N)\) time.
-- For an easy visual breakdown of how the parent-child relationships change between these two structures:
+- For an easy visual breakdown of how the parent-child relationships change between these two structures
+  <img width="1193" height="569" alt="image" src="https://github.com/user-attachments/assets/5ee7437f-ba7d-4e1c-843c-e6b20fea66bc" />
+
