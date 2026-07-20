@@ -156,4 +156,133 @@ if __name__ == "__main__":
 
 
 ## 3. Optimal Approach: Comparing in pairs - O(n) Time and O(1) Space
+This approach finds the smallest and largest numbers in a list by reducing the number of comparisons. If the list has an odd number of elements, it initializes both the minimum and maximum with the first element. If it has an even number, it compares the first two elements to set the initial min and max. 
 
+It then processes the remaining elements in pairs. For each pair, it identifies the smaller and larger number, then updates the current minimum and maximum accordingly. After all pairs are checked, the final minimum and maximum values are returned.
+
+```python
+def find_min_max(arr):
+    n = len(arr)
+
+    # Initialize min and max
+    if n % 2 == 1:
+        mini = maxi = arr[0]
+        i = 1
+    else:
+        if arr[0] < arr[1]:
+            mini = arr[0]
+            maxi = arr[1]
+        else:
+            mini = arr[1]
+            maxi = arr[0]
+        i = 2
+
+    # Process elements in pairs
+    while i < n - 1:
+        if arr[i] < arr[i + 1]:
+            mini = min(mini, arr[i])
+            maxi = max(maxi, arr[i + 1])
+        else:
+            mini = min(mini, arr[i + 1])
+            maxi = max(maxi, arr[i])
+        i += 2
+
+    return [mini, maxi]
+
+def main():
+    arr = [3, 5, 4, 1, 9]
+    result = find_min_max(arr)
+    print(result[0], result[1])
+
+if __name__ == "__main__":
+    main()
+```
+
+# 3. Kth Smallest
+Given an integer array arr[] and an integer k, find and return the kth smallest element in the given array.
+> Note: The kth smallest element is determined based on the sorted order of the array.
+
+## 1. Naive Approach: Using sort
+```python
+def kth_smallest_sort(arr, k):
+    # Sort the array in ascending order
+    arr.sort()
+    # k-th smallest element is at index k-1
+    return arr[k - 1]
+```
+### Points to Remember: 
+- `arr.sort()` does inplace modification, while `sorted(arr)` creates new list. 
+
+## 2. This approach uses a heap under the hood
+
+```python
+import heapq
+
+def findKthSmallest(nums, k):
+    # Python's heapq is a min-heap by default.
+    # We negate numbers to simulate a Max-Heap!
+    max_heap = []
+    
+    for num in nums:
+        # Push negated value into the heap
+        heapq.heappush(max_heap, -num)
+        
+        # If heap size exceeds k, drop the largest element (which is the smallest negative)
+        if len(max_heap) > k:
+            heapq.heappop(max_heap)
+            
+    # The top element is negated, so convert it back
+    return -max_heap[0]
+
+# Example Usage:
+nums = [7, 10, 4, 3, 20, 15]
+k = 3
+print(f"The {k}rd smallest element is:", findKthSmallest(nums, k))
+# Output: 7 (Sorted array: [3, 4, 7, 10, 15, 20])
+```
+
+### Points to Remember
+- One Liner: `k_smallest = heapq.nsmallest(k, input_list)`
+- Max Heap, Min Heap
+
+# 4. Given an array arr[] containing only 0s, 1s, and 2s. Sort the array in ascending order.
+> Note: You need to solve this problem without utilizing the built-in sort function.
+
+This is the classic Dutch National Flag Problem, famously posed by Edsger Dijkstra.
+
+Since the array only contains 0s, 1s, and 2s, the optimal solution is the 3-Way Partitioning (Two-Pointer / Three-Pointer) approach, which sorts the array in a single pass without using extra memory.
+
+💡 The Core Intuition
+We divide the array into three sections using three pointers:
+- low: Boundary for 0s (everything before low is 0).
+- mid: Current element being evaluated.
+- high: Boundary for 2s (everything after high is 2).
+
+As we traverse with mid:
+- If arr[mid] == 0: Swap with arr[low], increment both low and mid.
+- If arr[mid] == 1: It's already in the correct relative zone! Just increment mid.
+- If arr[mid] == 2: Swap with arr[high], decrement high (do not increment mid yet, because the swapped element from high still needs to be checked).
+
+```python
+def sort012(arr):
+    low = 0
+    mid = 0
+    high = len(arr) - 1
+    
+    while mid <= high:
+        if arr[mid] == 0:
+            arr[low], arr[mid] = arr[mid], arr[low]
+            low += 1
+            mid += 1
+        elif arr[mid] == 1:
+            mid += 1
+        else:  # arr[mid] == 2
+            arr[mid], arr[high] = arr[high], arr[mid]
+            high -= 1
+
+# Example Usage:
+arr = [2, 0, 2, 1, 1, 0]
+sort012(arr)
+print("Sorted array:", arr)
+# Output: [0, 0, 1, 1, 2, 2]
+```
