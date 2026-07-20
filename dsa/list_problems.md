@@ -1,4 +1,4 @@
-# Reverse an Array:
+# 1. Reverse an Array:
 ## 1. **Naive Approach:** O(n) Time and O(n) Space
 
 Create a temporary array of same size as the original array. 
@@ -104,4 +104,56 @@ if __name__ == "__main__":
 
 ### Points to Remember: 
 - Integer division is used to iterate upto `n//2`
-- Integer Division `(n//2)` and module division `(n%2)` is used in palindrom number problem   
+- Integer Division `(n//2)` and module division `(n%2)` is used in palindrom number problem
+
+
+# 2. Maximum and minimum of an array :
+## 1. **Naive Approach:** By Sorting the array - O(n log n) Time and O(1) Space
+
+Sort the Array. 
+Then take out 0th and -1th element as max and min.
+```python
+def findMinMax(arr):
+    
+    # Sort array
+    sorted_arr = sorted(arr)
+    return [sorted_arr[0], sorted_arr[-1]] 
+
+if __name__ == "__main__":
+    arr = [3, 5, 4, 1, 9]
+    result = findMinMax(arr)
+    print("%d %d" % (result[0], result[1]))
+```
+
+### Points to Remember: 
+- To sort an array `sorted()` function is used
+- In order to take lastelement of an array use arr[-1]
+
+
+## 2. **Better Approach:** Iterating the array - O(n) Time and O(1) Space
+
+```python
+def findMinMax(arr):
+    mini = float('inf') 
+    maxi = float('-inf')
+    
+    # Find minimum and maximum
+    for num in arr: 
+        if num < mini:
+            mini = num
+        if num > maxi:
+            maxi = num
+    
+    return [mini, maxi]
+
+if __name__ == "__main__":
+    arr = [3, 5, 4, 1, 9]
+    result = findMinMax(arr)
+    print(result[0], result[1])
+```
+### Points to Remember: 
+- To find min and max we can start by defining `+infinity` and `-infinity` as `float('inf')` and `float('-inf')`
+
+
+## 3. Optimal Approach: Comparing in pairs - O(n) Time and O(1) Space
+
