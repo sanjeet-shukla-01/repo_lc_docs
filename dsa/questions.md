@@ -8,6 +8,18 @@
 - arr.sort() returns None
 
 
+### How to sort an Array in Descending Order
+- 1. using `arr.sort(reverse=True)`
+  ```python
+  numbers = [23, 4, 89, 12, 56]
+  numbers.sort(reverse=True)
+  ```
+- 2. using `sorted(arr, reverse=True)`
+  ```python
+  numbers = [23, 4, 89, 12, 56]
+  sorted_numbers = sorted(numbers, reverse=True)
+  ```
+
 ### What is min heap and max heap?
 - **Min Heap** In a Min Heap, the value of each parent node is less than or equal to its child nodes.
 - Key Feature: The absolute smallest element is always at the root.
