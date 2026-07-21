@@ -288,7 +288,7 @@ print("Sorted array:", arr)
 ```
 
 
-# Find Union and Intersection of Sorted Array
+# 5. Find Union and Intersection of Sorted Array
 
 ## Naive Approach
 ```python
@@ -382,3 +382,26 @@ print("Intersection:", inter_res)  # Output: [2, 3, 7]
 ### Points to Remeber
 - How while loop is used for two pointers `while i < n and j < m:`
 - To check whether result array is empty or result array already contains current elelment `if not union or union[-1] != arr1[i]:`
+- `arr1[i] < arr2[j]`: Move i forward (the smaller value cannot match any future larger items in arr2).
+- `arr1[i] > arr2[j]`: Move j forward.
+- `arr1[i] == arr2[j]`: Move both pointers forward (i++, j++).
+
+
+
+# 6 Cyclically Rotate an Array by 1
+
+
+
+
+# 7 Move all negative numbers to beginning and positive to end with
+## 1. Using arr.sort
+```python
+def move(arr):
+    arr.sort()
+    return arr
+```
+
+
+
+### Points to Remeber
+- 
