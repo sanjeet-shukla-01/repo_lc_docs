@@ -1,4 +1,4 @@
-### What is difference between `sorted()` vs arr.sort() methods?
+### What is difference between `sorted()` vs `arr.sort()` methods?
 - sorted() leaves original object unchanged
 - sorted is built in function that takes Any iterable (list, tuple, string, set, dict)
 - Returns a brand new sorted list, hence take memory 
@@ -8,7 +8,7 @@
 - arr.sort() returns None
 
 
-### How to sort an Array in Descending Order
+### How to sort an Array in Descending Order?
 - 1. using `arr.sort(reverse=True)`
   ```python
   numbers = [23, 4, 89, 12, 56]
