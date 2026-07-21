@@ -286,3 +286,99 @@ sort012(arr)
 print("Sorted array:", arr)
 # Output: [0, 0, 1, 1, 2, 2]
 ```
+
+
+# Find Union and Intersection of Sorted Array
+
+## Naive Approach
+```python
+# Initial sample arrays (lists)
+array1 = [1, 2, 2, 3, 4]
+array2 = [3, 4, 4, 5, 6]
+
+# Convert to sets to eliminate duplicates
+set1 = set(array1)
+set2 = set(array2)
+
+# --- UNION ---
+# Combines all unique elements from both arrays
+union_result = list(set1 | set2)  # Or use: set1.union(set2)
+print("Union:", union_result)  
+# Output: [1, 2, 3, 4, 5, 6]
+
+# --- INTERSECTION ---
+# Keeps only the elements present in both arrays
+intersection_result = list(set1 & set2)  # Or use: set1.intersection(set2)
+print("Intersection:", intersection_result)  
+# Output: [3, 4]
+```
+
+## Better Appraoch without using any inbuilt data strucuture
+```python
+def find_union_and_intersection(arr1, arr2):
+    n, m = len(arr1), len(arr2)
+    
+    # --- 1. UNION ---
+    union = []
+    i, j = 0, 0
+    while i < n and j < m:
+        # Pick the smaller element to maintain sorted order
+        if arr1[i] < arr2[j]:
+            val = arr1[i]
+            i += 1
+        elif arr2[j] < arr1[i]:
+            val = arr2[j]
+            j += 1
+        else:  # arr1[i] == arr2[j]
+            val = arr1[i]
+            i += 1
+            j += 1
+            
+        # Avoid duplicate elements in the result
+        if not union or union[-1] != val:
+            union.append(val)
+            
+    # Process remaining elements in arr1
+    while i < n:
+        if not union or union[-1] != arr1[i]:
+            union.append(arr1[i])
+        i += 1
+        
+    # Process remaining elements in arr2
+    while j < m:
+        if not union or union[-1] != arr2[j]:
+            union.append(arr2[j])
+        j += 1
+
+    # --- 2. INTERSECTION ---
+    intersection = []
+    i, j = 0, 0
+    while i < n and j < m:
+        if arr1[i] < arr2[j]:
+            i += 1
+        elif arr2[j] < arr1[i]:
+            j += 1
+        else:  # Equal elements -> common element
+            if not intersection or intersection[-1] != arr1[i]:
+                intersection.append(arr1[i])
+            i += 1
+            j += 1
+
+    return union, intersection
+
+
+# Example Usage:
+arr1 = [1, 2, 2, 3, 4, 7]
+arr2 = [2, 3, 5, 7, 8]
+
+union_res, inter_res = find_union_and_intersection(arr1, arr2)
+
+print("Union:", union_res)         # Output: [1, 2, 3, 4, 5, 7, 8]
+print("Intersection:", inter_res)  # Output: [2, 3, 7]
+```
+
+
+
+### Points to Remeber
+- How while loop is used for two pointers `while i < n and j < m:`
+- To check whether result array is empty or result array already contains current elelment `if not union or union[-1] != arr1[i]:`
