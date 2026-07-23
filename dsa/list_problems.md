@@ -37,6 +37,9 @@ Initializing a list
 Iterating in reverse
 - `for i in range(n):
         temp[i] = arr[n - i - 1]`
+Iterating in reverse
+- `for item in reversed(my_list):
+    print(item)`
 
 ### 2. Using Two Pointers - O(n) Time and O(1) Space
 
