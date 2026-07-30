@@ -444,6 +444,7 @@ def rotate(arr):
   print(arr[:-1]) # [1, 2, 3, 4, 5]
   print(arr[-1:] + arr[:-1]) # [6, 1, 2, 3, 4, 5]
   ```
+- Practice slicing and subsetting before interview
 
 
 
