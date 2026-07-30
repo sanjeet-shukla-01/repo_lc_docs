@@ -392,7 +392,58 @@ print("Intersection:", inter_res)  # Output: [2, 3, 7]
 
 
 # 6 Cyclically Rotate an Array by 1
+## Shifting Each Element - O(n) Time and O(1) Space
 
+```python
+def rotate(arr):
+  
+    # store the last element in a variable
+    lastElement = arr[-1]
+
+    # assign every value by its predecessor
+    for i in range(len(arr) - 1, 0, -1):
+        arr[i] = arr[i - 1]
+
+    # first element will be assigned by last element
+    arr[0] = lastElement
+
+```
+
+## Using Two Pointers - O(n) Time and O(1) Space
+```python
+def rotate(arr):
+    # i and j pointing to first and last
+    # element respectively
+    i, j = 0, len(arr) - 1
+    while i < j:
+        arr[i], arr[j] = arr[j], arr[i]
+        i += 1
+
+if __name__ == "__main__":
+  arr = [1, 2, 3, 4, 5]
+  rotate(arr)
+  for i in range(0, len(arr)):
+    print(arr[i], end=' ')
+```
+
+## Using Slicing
+```python
+def rotate(arr):
+    if len(arr) > 1:
+        arr[:] = arr[-1:] + arr[:-1]
+```
+
+
+### Points to remeber:
+- How to run the for loop with increment/decrement and final value
+- `for i in range(len(arr) - 1, 0, -1):` or `for i in range(0, len(arr), +1):`
+- How slicing can help in this case
+  ```python
+  arr = [1, 2, 3, 4, 5, 6]
+  print(arr[-1:]) # [6]
+  print(arr[:-1]) # [1, 2, 3, 4, 5]
+  print(arr[-1:] + arr[:-1]) # [6, 1, 2, 3, 4, 5]
+  ```
 
 
 
