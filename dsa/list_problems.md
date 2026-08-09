@@ -456,7 +456,31 @@ def move(arr):
     return arr
 ```
 
+## Using Quick Sort Partition - O(n) time and O(1) space
+```python
+# Python program to Move all negative numbers
+# to beginning and positive to end
 
+def move(arr):
+    j = 0
+    for i in range(len(arr)):
+        
+        # If negative number is present
+        # swap it with arr[j]
+        if arr[i] < 0:
+            arr[i], arr[j] = arr[j], arr[i]
+            j += 1
+    
+    return arr
+
+if __name__ == "__main__":
+    arr = [-12, 11, -13, -5, 6, -7, 5, -3, -6]
+    ans = move(arr)
+    
+    for num in ans:
+        print(num, end=" ")
+    print()
+```
 
 ### Points to Remeber
 - 
