@@ -482,9 +482,6 @@ if __name__ == "__main__":
     print()
 ```
 
-### Points to Remeber
-- 
-
 
 # 8. Longest Consecutive Subsequence
 
@@ -509,3 +506,7 @@ def longest_consecutive(nums: list[int]) -> int:
 
     return longest
 ```
+
+### Points to remeber:
+- In case of longest, we use this pattern: `longest = max(longest, current_max`
+- 
