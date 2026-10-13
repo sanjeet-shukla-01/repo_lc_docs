@@ -155,3 +155,136 @@ def fibonacci_recursive(n):
     return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
 
 ```
+
+### Candy Type
+Alice has n candies, where the ith candy is of type candyType[i]. Alice noticed that she started to gain weight, so she visited a doctor.
+The doctor advised Alice to only eat n / 2 of the candies she has (n is always even). Alice likes her candies very much, and she wants to eat the maximum number of different types of candies while still following the doctor's advice.
+
+Given the integer array candyType of length n, return the maximum number of different types of candies she can eat if she only eats n / 2 of them.
+
+Example 1:
+```
+Input: candyType = [1,1,2,2,3,3]
+Output: 3
+Explanation: Alice can only eat 6 / 2 = 3 candies. Since there are only 3 types, she can eat one of each type.
+Example 2:
+```
+
+```
+Input: candyType = [1,1,2,3]
+Output: 2
+Explanation: Alice can only eat 4 / 2 = 2 candies. Whether she eats types [1,2], [1,3], or [2,3], she still can only eat 2 different types.
+```
+
+#### Key Insight
+- The maximum number of candies she can eat is len(candyType) // 2.The number of unique candy types available is len(set(candyType)).Therefore, the maximum number of different types she can eat is simply the smaller of these two numbers:If there are more unique types than her allowance ($n / 2$), she can only eat up to her allowance.If there are fewer unique types than her allowance, she can eat all of the unique types available.
+
+```Pyhon
+class Solution(object):
+    def distributeCandies(self, candyType):
+        """
+        :type candyType: List[int]
+        :rtype: int
+        """
+        max_allowed = len(candyType) // 2
+        unique_types = len(set(candyType))
+        
+        return min(max_allowed, unique_types)
+
+```
+
+
+
+## 1169. Invalid Transactions
+A transaction is possibly invalid if:
+- the amount exceeds $1000, or;
+- if it occurs within (and including) 60 minutes of another transaction with the same name in a different city.
+You are given an array of strings transaction where transactions[i] consists of comma-separated values representing the name, time (in minutes), amount, and city of the transaction.
+
+Return a list of transactions that are possibly invalid. You may return the answer in any order.
+
+```Python
+    def invalidTransactions(self, transactions):
+        """
+        :type transactions: List[str]
+        :rtype: List[str]
+        """
+        parsed = []
+        for i, t in enumerate(transactions):
+            name, time, amount, city = t.split(",")
+            parsed.append({
+                "index": i,
+                "name": name,
+                "time": int(time),
+                "amount": int(amount),
+                "city": city,
+                "raw": t
+            })
+        # print(parsed)
+
+        invalid_indices = set()
+
+        for i in range(len(parsed)):
+            # Rule 1: Amount exceeds 1000
+            if parsed[i]["amount"] > 1000:
+                invalid_indices.add(i)
+
+            # Rule 2: Same name, different city, time difference <= 60 minutes
+            for j in range(len(parsed)):
+                if i == j:
+                    continue
+
+                if (parsed[i]["name"] == parsed[j]["name"] and 
+                    parsed[i]["city"] != parsed[j]["city"] and 
+                    abs(parsed[i]["time"] - parsed[j]["time"]) <= 60):
+                    invalid_indices.add(i)
+                    break  # Once it's marked invalid, we can break out of the inner loop
+
+        # Collect all invalid transaction strings using their original indices
+        return [transactions[i] for i in sorted(list(invalid_indices))]
+
+```
+
+## 1029. Two City Scheduling
+A company is planning to interview 2n people. Given the array costs where costs[i] = [aCosti, bCosti], the cost of flying the ith person to city a is aCosti, and the cost of flying the ith person to city b is bCosti.
+
+Return the minimum cost to fly every person to a city such that exactly n people arrive in each city.
+
+ 
+
+Example 1:
+```
+Input: costs = [[10,20],[30,200],[400,50],[30,20]]
+Output: 110
+Explanation: 
+The first person goes to city A for a cost of 10.
+The second person goes to city A for a cost of 30.
+The third person goes to city B for a cost of 50.
+The fourth person goes to city B for a cost of 20.
+
+The total minimum cost is 10 + 30 + 50 + 20 = 110 to have half the people interviewing in each city.
+```
+
+Calculate bCosti - aCosti.
+- If this difference is negative, sending them to City B actually saves us money compared to City A.
+- If it's positive, sending them to City B costs more.
+
+```Python
+def twoCitySchedCost(self, costs):
+    """
+    :type costs: List[List[int]]
+    :rtype: int
+    """
+    costs.sort(key=lambda x: x[1] - x[0])
+    total_cost = 0
+    n = len(costs) // 2
+    # First n people go to City B (index 1)
+    for i in range(n):
+        total_cost += costs[i][1]
+
+    # Remaining n people go to City A (index 0)
+    for i in range(n, len(costs)):
+        total_cost += costs[i][0]
+
+    return total_cost
+```
