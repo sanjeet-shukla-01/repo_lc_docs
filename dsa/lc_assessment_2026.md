@@ -122,3 +122,36 @@ if fruits[right] not in count:
     count[fruits[right]] = 0
 count[fruits[right]] += 1
 ```
+
+---
+
+## Fibonacci
+
+```python
+class Solution(object):
+    def fib(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 0:
+            return 0
+        
+        a, b = 0, 1
+        for _ in range(2, n + 1):
+            a, b = b, a + b
+        return b if n > 0 else 0
+```
+
+Using recursion
+
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fibonacci_recursive(n):
+    if n < 2:
+        return n
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+
+```
